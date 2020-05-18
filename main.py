@@ -78,7 +78,7 @@ with open('fund.txt', 'r') as fund:
 
 for customer in customers:
     for room in hotel:
-        if int(customer.max_price) >= int(room.price) and int(customer.number_pers) <= int(room.people) and \
+        if int(customer.max_price) >= int(room.price) and int(customer.number_pers) == int(room.people) and \
                 room.occupancy == 'Свободно':
             print(customer, 'номер {} {} расчитан на {} человека фактически {} человек стоимость {} руб./сутки '.format
             (room.room, room.type, room.people, customer.number_pers,room.price))
