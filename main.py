@@ -82,4 +82,4 @@ for customer in customers:
                 room.occupancy == 'Свободно':
             print(customer, 'номер {} {} расчитан на {} человека фактически {} человек стоимость {} руб./сутки '.format
             (room.room, room.type, room.people, customer.number_pers,room.price))
-            room.occupancy = 'Занято' 
+            room.occupancy = 'Занято'
