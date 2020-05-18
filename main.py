@@ -83,3 +83,5 @@ for customer in customers:
             print(customer, 'номер {} {} расчитан на {} человека фактически {} человек стоимость {} руб./сутки '.format
             (room.room, room.type, room.people, customer.number_pers,room.price))
             room.occupancy = 'Занято'
+
+#дописать метод который зависит от времени, то есть параметр занято/свободно меняется после определенной даты
