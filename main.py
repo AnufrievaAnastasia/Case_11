@@ -1,5 +1,5 @@
 class Information:
-    ''''''
+    '''описывает информацию о человеке'''
 
     def __init__(self, line):
         line_main = line.split(' ')
@@ -28,10 +28,11 @@ class Information:
 
 
 class Room:
-    ''''''
+    '''описывает номера в гостинице'''
 
     price_type_room = {'одноместный': 2900, 'двухместный': 2300, 'полулюкс': 3200, 'люкс': 4100}
     comfort = {'стандарт': 1, 'стандарт_улучшенный': 1.2, 'апартамент': 1.5}
+    #food = {'Без питания': 0, 'Завтрак': 280, 'Полупансион':1000}
 
     def __init__(self, line, occupancy = 'Свободно', place = '0'):
         line_main = line.split(' ')
@@ -66,7 +67,7 @@ with open('booking.txt', 'r') as booking:
     for line in booking.readlines():
         customer = Information(line)
         customers.append(customer)
-print(customers)
+#print(customers)
 
 hotel = []
 
@@ -74,14 +75,30 @@ with open('fund.txt', 'r') as fund:
     for line_2 in fund.readlines():
         room = Room(line_2)
         hotel.append(room)
-    print(hotel)
-
+    #print(hotel)
+rooms_taken = 0
+rooms_valid = 0
+revenue = 0
+revenue_lost = 0
 for customer in customers:
     for room in hotel:
         if int(customer.max_price) >= int(room.price) and int(customer.number_pers) == int(room.people) and \
                 room.occupancy == 'Свободно':
-            print(customer, 'номер {} {} расчитан на {} человека фактически {} человек стоимость {} руб./сутки '.format
-            (room.room, room.type, room.people, customer.number_pers,room.price))
+            print(customer, 'номер {} {} расчитан на {} человека фактически {} человек {} стоимость {} руб./сутки '.format
+            (room.room, room.type, room.people, customer.number_pers, room.food, room.price))
+            print('Клиент согласен. Номер забронирован.')
             room.occupancy = 'Занято'
+            rooms_taken += 1
+            revenue += room.price
+            break
+        if int(customer.max_price) < int(room.price) and int(customer.number_pers) == int(room.people):
+            print(customer, 'Предложений по данному запросу нет. В бронировании отказано.')
+            revenue_lost += room.price
+            break
 
-#дописать метод который зависит от времени, то есть параметр занято/свободно меняется после определенной даты
+        rooms_valid = 24 - rooms_taken
+print('Итог')
+print('Количество занятых номеров: ', rooms_taken)
+print('Количество свободных номеров: ', rooms_valid)
+print('Доход: ', revenue)
+print('Упущенный доход: ', revenue_lost)
