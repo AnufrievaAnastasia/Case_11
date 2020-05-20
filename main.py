@@ -1,3 +1,5 @@
+#Anufrieva A.67%
+#Zhuravleva A. 40%
 class Information:
     '''описывает информацию о человеке'''
 
